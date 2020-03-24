@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Mobile Android Screening</string>
+    <string name="avatar_image">Avatar Image</string>
+    <string name="search_for_user_s_repositories">Search for User\'s Repositories</string>
+    <string name="forks">Forks</string>
+    <string name="starts">Starts</string>
+    <string name="repo">Repo:</string>
+    <string name="search_for_users">Search for Users</string>
 </resources>
