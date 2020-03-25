@@ -65,6 +65,9 @@ class UserDetailActivity : AppCompatActivity() {
             tv_user_detail_email.text = userDetail.email
             tv_user_detail_location.text = userDetail.location
             tv_user_detail_join_date.text = userDetail.createdAt
+            tv_user_detail_bio.text = userDetail.bio
+            tv_user_detail_followers.text = userDetail.followers.toString()
+            tv_user_detail_following.text = userDetail.following.toString()
         })
 
         viewModel.userReposObservable().observe(this, Observer { userRepos ->

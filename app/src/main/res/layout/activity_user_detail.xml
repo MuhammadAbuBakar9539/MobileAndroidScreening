@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.UserDetailActivity">
 
     <ImageView
@@ -65,10 +65,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_side"
         android:layout_marginEnd="@dimen/margin_side"
+        android:text="@string/followers"
         app:layout_constraintEnd_toStartOf="@id/tv_user_detail_followers"
         app:layout_constraintStart_toStartOf="@+id/tv_user_detail_join_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_join_date"
-        android:text="@string/followers" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_join_date" />
 
     <TextView
         android:id="@+id/tv_user_detail_followers"
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_user_detail_followers_text"
         app:layout_constraintTop_toTopOf="@+id/tv_user_detail_followers_text"
-        android:text="@string/no" />
+        tools:text="@string/no" />
 
     <TextView
         android:id="@+id/tv_user_detail_following_text"
@@ -86,10 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_side"
         android:layout_marginEnd="@dimen/margin_side"
+        android:text="@string/following"
         app:layout_constraintEnd_toStartOf="@+id/tv_user_detail_following"
         app:layout_constraintStart_toStartOf="@+id/tv_user_detail_followers_text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_followers_text"
-        android:text="@string/following" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_followers_text" />
 
     <TextView
         android:id="@+id/tv_user_detail_following"
@@ -99,7 +99,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_user_detail_following_text"
         app:layout_constraintTop_toTopOf="@+id/tv_user_detail_following_text"
-        android:text="@string/no" />
+        tools:text="@string/no" />
+
+    <TextView
+        android:id="@+id/tv_user_detail_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_side"
+        android:padding="@dimen/margin_side"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_following"
+        tools:text="Bio" />
 
     <EditText
         android:id="@+id/et_user_repository_search"
@@ -109,7 +118,7 @@
         android:hint="@string/search_for_user_s_repositories"
         android:importantForAutofill="no"
         android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_following" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_detail_bio" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_repositories"
