@@ -6,4 +6,7 @@
     <string name="starts">Starts</string>
     <string name="repo">Repo:</string>
     <string name="search_for_users">Search for Users</string>
+    <string name="no">##</string>
+    <string name="followers">Followers:</string>
+    <string name="following">Following:</string>
 </resources>

@@ -11,7 +11,7 @@ data class UserModel(
     val company: Any,
     @SerializedName("created_at")
     val createdAt: String,
-    val email: Any,
+    val email: String?,
     @SerializedName("events_url")
     val eventsUrl: String,
     val followers: Int,
@@ -28,7 +28,7 @@ data class UserModel(
     @SerializedName("html_url")
     val htmlUrl: String,
     val id: Int,
-    val location: Any,
+    val location: String?,
     val login: String,
     val name: Any,
     @SerializedName("node_id")

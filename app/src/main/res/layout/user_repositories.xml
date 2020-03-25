@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_side"
     app:cardElevation="@dimen/margin_side">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +35,7 @@
 
         <TextView
             android:id="@+id/tv_forks"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_side"
             android:layout_marginEnd="@dimen/margin_side"
@@ -55,10 +56,10 @@
 
         <TextView
             android:id="@+id/tv_stars"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_side"
-            android:layout_marginEnd="@dimen/margin_side"
+            android:paddingEnd="@dimen/margin_side"
             android:text="@string/starts"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_no_of_stars"
