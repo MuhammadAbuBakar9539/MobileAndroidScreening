@@ -5,11 +5,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileandroidscreening.R
+import com.example.mobileandroidscreening.common.GITHUB_BASE_URL
 import com.example.mobileandroidscreening.common.inflate
 import com.example.mobileandroidscreening.model.UserReposModel
 import kotlinx.android.synthetic.main.user_repositories.view.*
 
-class UserReposAdapter(var userRepos: List<UserReposModel>):RecyclerView.Adapter<UserReposAdapter.UserViewModel>() {
+class UserReposAdapter(
+    var userRepos: List<UserReposModel>,
+    private val onReposRecyclerViewItemClicked: OnReposRecyclerViewItemClicked
+) : RecyclerView.Adapter<UserReposAdapter.UserViewModel>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewModel {
         return UserViewModel(parent.inflate(R.layout.user_repositories))
@@ -23,15 +27,22 @@ class UserReposAdapter(var userRepos: List<UserReposModel>):RecyclerView.Adapter
         holder.repoName.text = userRepos[position].fullName
         holder.forks.text = userRepos[position].forksCount.toString()
         holder.stars.text = userRepos[position].stargazersCount.toString()
+        holder.bind(GITHUB_BASE_URL + userRepos[position].fullName)
     }
 
-    class UserViewModel(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class UserViewModel(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val repoName: TextView = itemView.tv_repository_name
         val forks: TextView = itemView.tv_no_of_forks
         val stars: TextView = itemView.tv_no_of_stars
+
+        fun bind(repoLink:String){
+            itemView.setOnClickListener {
+                onReposRecyclerViewItemClicked.onRepoItemClicked(repoLink)
+            }
+        }
     }
 
-    fun filterList(filteredList: MutableList<UserReposModel>){
+    fun filterList(filteredList: MutableList<UserReposModel>) {
         userRepos = filteredList
         notifyDataSetChanged()
     }

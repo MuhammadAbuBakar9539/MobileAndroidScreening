@@ -1,5 +1,7 @@
 package com.example.mobileandroidscreening.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +16,7 @@ import com.example.mobileandroidscreening.common.loadImage
 import com.example.mobileandroidscreening.di.component.DaggerUserDetailComponent
 import com.example.mobileandroidscreening.di.module.UserDetailModule
 import com.example.mobileandroidscreening.model.UserReposModel
+import com.example.mobileandroidscreening.view.recyclerview.OnReposRecyclerViewItemClicked
 import com.example.mobileandroidscreening.view.recyclerview.UserReposAdapter
 import com.example.mobileandroidscreening.viewmodel.UserSearcherViewModel
 import kotlinx.android.synthetic.main.activity_user_detail.*
@@ -66,7 +69,13 @@ class UserDetailActivity : AppCompatActivity() {
 
         viewModel.userReposObservable().observe(this, Observer { userRepos ->
             userReposList = userRepos
-            adapter = UserReposAdapter(userReposList)
+            adapter = UserReposAdapter(userReposList, object:OnReposRecyclerViewItemClicked{
+                override fun onRepoItemClicked(repoLink: String) {
+                    startActivity(
+                        Intent(Intent.ACTION_VIEW, Uri.parse(repoLink))
+                    )
+                }
+            })
             rv_user_repositories.layoutManager = LinearLayoutManager(this)
             rv_user_repositories.adapter = adapter
         })
