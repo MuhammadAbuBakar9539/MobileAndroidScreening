@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 data class UserSearcherModel(
     @SerializedName("incomplete_results")
     val incompleteResults: Boolean,
-    val user: List<User>,
+    val items: List<Item>,
     @SerializedName("total_count")
     val totalCount: Int
 ) {
-    data class User(
+    data class Item(
         @SerializedName("avatar_url")
         val avatarUrl: String,
         @SerializedName("events_url")

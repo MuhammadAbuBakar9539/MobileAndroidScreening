@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_side"
     app:cardElevation="@dimen/margin_side">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +16,7 @@
             android:layout_width="@dimen/search_user_image_size"
             android:layout_height="@dimen/search_user_image_size"
             android:contentDescription="@string/avatar_image"
+            android:paddingStart="@dimen/margin_side"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,6 +47,7 @@
             android:id="@+id/tv_search_user_no_of_repositories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_side"
             app:layout_constraintBottom_toBottomOf="@+id/tv_search_user_repo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_search_user_repo"

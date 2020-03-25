@@ -2,9 +2,9 @@ package com.example.mobileandroidscreening.viewmodel.repository
 
 import com.example.mobileandroidscreening.model.UserModel
 import com.example.mobileandroidscreening.model.UserSearcherModel
-import io.reactivex.Single
+import retrofit2.Response
 
 interface UserSearcherRepository {
-    suspend fun getUsersList(userName: String):UserSearcherModel
-    suspend fun getNoOfRepos(userName: String):UserModel
+    suspend fun getUsersList(userName: String): Response<UserSearcherModel>
+    suspend fun getUserDetail(userName: String?): Response<UserModel>
 }

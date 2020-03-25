@@ -1,5 +1,6 @@
 package com.example.mobileandroidscreening.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -10,8 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobileandroidscreening.MyApp
 import com.example.mobileandroidscreening.R
+import com.example.mobileandroidscreening.common.INTENT_KEY
+import com.example.mobileandroidscreening.common.createToast
 import com.example.mobileandroidscreening.di.component.DaggerUserSearcherComponent
 import com.example.mobileandroidscreening.di.module.UserSearcherModule
+import com.example.mobileandroidscreening.view.recyclerview.OnUserRecyclerViewItemClicked
 import com.example.mobileandroidscreening.view.recyclerview.UserSearchAdapter
 import com.example.mobileandroidscreening.viewmodel.UserSearcherViewModel
 import kotlinx.android.synthetic.main.activity_searcher.*
@@ -38,9 +42,9 @@ class SearcherActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length !=0){
                     viewModel.getUsersList(s.toString())
-                }else{
+                }/*else{
                     //rv_users.visibility = View.GONE
-                }
+                }*/
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -54,7 +58,17 @@ class SearcherActivity : AppCompatActivity() {
             viewModel.usersListObservable().observe(this, Observer { searchedUsers->
                 //rv_users.visibility = View.VISIBLE
                 rv_users.layoutManager = LinearLayoutManager(this)
-                rv_users.adapter = UserSearchAdapter(searchedUsers)
+                rv_users.adapter = UserSearchAdapter(searchedUsers, object: OnUserRecyclerViewItemClicked{
+                    override fun onUserItemClicked(userName: String) {
+                        val intent = Intent(this@SearcherActivity, UserDetailActivity::class.java)
+                        intent.putExtra(INTENT_KEY, userName)
+                        startActivity(intent)
+                    }
+                })
+            })
+
+            viewModel.usersListErrorObservable().observe(this, Observer { error->
+                createToast(error)
             })
         }
     }
