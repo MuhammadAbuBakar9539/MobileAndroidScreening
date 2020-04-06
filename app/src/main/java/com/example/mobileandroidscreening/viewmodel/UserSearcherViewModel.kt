@@ -1,39 +1,53 @@
 package com.example.mobileandroidscreening.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import com.example.mobileandroidscreening.model.UserModel
 import com.example.mobileandroidscreening.model.UserReposModel
 import com.example.mobileandroidscreening.model.UserSearcherModel
 import com.example.mobileandroidscreening.viewmodel.repository.UserSearcherRepository
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.*
 import retrofit2.HttpException
-import retrofit2.Response
+import kotlin.math.sin
 
 class UserSearcherViewModel(private val repository: UserSearcherRepository) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
     private val usersListObservable = MutableLiveData<UserSearcherModel>()
     private val usersListErrorObservable = MutableLiveData<String>()
     private val userObservable = MutableLiveData<UserModel>()
     private val userErrorObservable = MutableLiveData<String>()
     private val userReposObservable = MutableLiveData<List<UserReposModel>>()
     private val userReposErrorObservable = MutableLiveData<String>()
+    private lateinit var userSearcherResponse: UserSearcherModel
+    private lateinit var singleItem:UserSearcherModel
 
-    fun getUsersList(userName: String) {
+
+    fun getUsersList(userName: String, connected: Boolean) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.getUsersList(userName)
+            userSearcherResponse = if (connected) {
+                repository.getUsersList(userName)
+            } else {
+                repository.getUsersListDb(userName)
+            }
             withContext(Dispatchers.Main) {
                 try {
-                    if (response.isSuccessful) {
-                        usersListObservable.value = response.body()
-                    } else {
-                        usersListErrorObservable.value = response.message()
+                    if (connected) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val list =UserSearcherModel.Item(1, "klj.png", "a")
+                                singleItem= UserSearcherModel(listOf(list))
+                                repository.addUsersList(singleItem)
+                            } catch (e: Exception) {
+                                Log.i("hope", e.message.toString())
+                            }
+                        }
                     }
+                    usersListObservable.value = userSearcherResponse
+                } catch (e: Exception) {
+                    usersListErrorObservable.value = e.message
                 } catch (e: HttpException) {
-                    usersListErrorObservable.value = e.message()
+                    usersListErrorObservable.value = e.message
                 } catch (e: Throwable) {
                     usersListErrorObservable.value = e.message
                 }
@@ -46,13 +60,11 @@ class UserSearcherViewModel(private val repository: UserSearcherRepository) : Vi
             val response = repository.getUserDetail(userName)
             withContext(Dispatchers.Main) {
                 try {
-                    if (response.isSuccessful) {
-                        userObservable.value = response.body()
-                    } else {
-                        userErrorObservable.value = response.message()
-                    }
+                    userObservable.value = response
+                } catch (e: Exception) {
+                    userErrorObservable.value = e.message
                 } catch (e: HttpException) {
-                    userErrorObservable.value = e.message()
+                    userErrorObservable.value = e.message
                 } catch (e: Throwable) {
                     userErrorObservable.value = e.message
                 }
@@ -65,13 +77,11 @@ class UserSearcherViewModel(private val repository: UserSearcherRepository) : Vi
             val response = repository.getUserRepos(userName)
             withContext(Dispatchers.Main) {
                 try {
-                    if (response.isSuccessful) {
-                        userReposObservable.value = response.body()
-                    } else {
-                        userReposErrorObservable.value = response.message()
-                    }
+                    userReposObservable.value = response
+                } catch (e: Exception) {
+                    userReposErrorObservable.value = e.message
                 } catch (e: HttpException) {
-                    userReposErrorObservable.value = e.message()
+                    userReposErrorObservable.value = e.message
                 } catch (e: Throwable) {
                     userReposErrorObservable.value = e.message
                 }

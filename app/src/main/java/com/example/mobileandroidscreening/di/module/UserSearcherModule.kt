@@ -3,6 +3,7 @@ package com.example.mobileandroidscreening.di.module
 import androidx.lifecycle.ViewModelProvider
 import com.example.mobileandroidscreening.common.network.Client
 import com.example.mobileandroidscreening.di.scope.ActivityScope
+import com.example.mobileandroidscreening.model.db.AndroidScreeningDao
 import com.example.mobileandroidscreening.view.SearcherActivity
 import com.example.mobileandroidscreening.viewmodel.UserSearcherViewModel
 import com.example.mobileandroidscreening.viewmodel.repository.UserSearcherRepository
@@ -29,9 +30,9 @@ class UserSearcherModule(private val searcherActivity: SearcherActivity) {
 
     @Provides
     @ActivityScope
-    fun provideRepository(client: Client): UserSearcherRepository {
+    fun provideRepository(client: Client, androidScreeningDao: AndroidScreeningDao): UserSearcherRepository {
         return UserSearcherRepositoryImpl(
-            client
+            client, androidScreeningDao
         )
     }
 }

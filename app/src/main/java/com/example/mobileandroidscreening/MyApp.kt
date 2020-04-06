@@ -3,6 +3,7 @@ package com.example.mobileandroidscreening
 import android.app.Application
 import com.example.mobileandroidscreening.di.component.AppComponent
 import com.example.mobileandroidscreening.di.component.DaggerAppComponent
+import com.example.mobileandroidscreening.di.module.AndroidScreeningDatabaseModule
 import com.example.mobileandroidscreening.di.module.NetworkModule
 
 class MyApp:Application() {
@@ -12,6 +13,8 @@ class MyApp:Application() {
     }
 
     fun component():AppComponent{
-        return DaggerAppComponent.builder().networkModule(NetworkModule()).build()
+        return DaggerAppComponent.builder().networkModule(NetworkModule())
+            .androidScreeningDatabaseModule(AndroidScreeningDatabaseModule(this))
+            .build()
     }
 }

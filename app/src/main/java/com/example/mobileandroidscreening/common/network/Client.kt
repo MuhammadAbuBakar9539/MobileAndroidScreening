@@ -13,11 +13,11 @@ import retrofit2.http.Query
 
 interface Client {
     @GET(USER_SEARCHER_ENDPOINT)
-    suspend fun getUsersList(@Query("q") userName: String): Response<UserSearcherModel>
+    suspend fun getUsersList(@Query("q") userName: String): UserSearcherModel
 
     @GET(USER_ENDPOINT)
-    suspend fun getUser(@Path("user") userName: String?): Response<UserModel>
+    suspend fun getUser(@Path("user") userName: String?): UserModel
 
     @GET(USER_REPOS_ENDPOINT)
-    suspend fun getUserRepos(@Path("user") userName: String?): Response<List<UserReposModel>>
+    suspend fun getUserRepos(@Path("user") userName: String?): List<UserReposModel>
 }

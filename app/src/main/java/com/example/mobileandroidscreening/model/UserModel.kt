@@ -1,9 +1,14 @@
 package com.example.mobileandroidscreening.model
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "tbl_user")
 data class UserModel(
+    @PrimaryKey(autoGenerate = true)
+    val id:Int,
     @SerializedName("avatar_url")
     val avatarUrl: String,
     val bio: String?,

@@ -13,6 +13,7 @@ import com.example.mobileandroidscreening.MyApp
 import com.example.mobileandroidscreening.R
 import com.example.mobileandroidscreening.common.INTENT_KEY
 import com.example.mobileandroidscreening.common.createToast
+import com.example.mobileandroidscreening.common.isConnected
 import com.example.mobileandroidscreening.di.component.DaggerUserSearcherComponent
 import com.example.mobileandroidscreening.di.module.UserSearcherModule
 import com.example.mobileandroidscreening.view.recyclerview.OnUserRecyclerViewItemClicked
@@ -41,7 +42,7 @@ class SearcherActivity : AppCompatActivity() {
         et_user_search.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 if (s?.length !=0){
-                    viewModel.getUsersList(s.toString())
+                    viewModel.getUsersList(s.toString(), application.isConnected())
                 }/*else{
                     //rv_users.visibility = View.GONE
                 }*/
