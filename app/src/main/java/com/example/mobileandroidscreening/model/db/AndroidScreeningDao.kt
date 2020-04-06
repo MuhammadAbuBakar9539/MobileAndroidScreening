@@ -11,7 +11,7 @@ import com.example.mobileandroidscreening.model.UserSearcherModel
 
 @Dao
 interface AndroidScreeningDao {
-    @Query("SELECT * FROM tbl_user_searcher WHERE 'login'=:userName")
+    @Query("SELECT * FROM tbl_user_searcher_item WHERE 'login'=:userName")
     suspend fun getUsersListDb(userName: String): UserSearcherModel
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

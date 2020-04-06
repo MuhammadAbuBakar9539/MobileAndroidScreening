@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class UserSearcherModel(
     val items: List<Item>
 ) {
-    @Entity(tableName = "tbl_user_searcher")
+    @Entity(tableName = "tbl_user_searcher_item")
     data class Item(
         @PrimaryKey(autoGenerate = true)
         val id:Int,
